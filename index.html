@@ -2,77 +2,277 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Theta Healing</title>
     <style>
-        body {
+        /* Базовые стили */
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+        }
+        
+        body {
             font-family: 'Segoe UI', sans-serif;
             color: #4a3f55;
             background-color: #fff9f9;
-            background-image: url('images/bg7.jpg');
-            background-size: cover;
-            background-position: center top;
-            background-attachment: fixed;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        nav {
-            position: sticky;
-            top: 0;
-            background-color: rgba(255, 240, 245, 0.9);
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10;
-            animation: fadeIn 1.2s ease-in-out;
-        }
-        nav a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #6b496d;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            font-size: 1.3rem;
-        }
-        nav a:hover {
-            color: #a064a2;
-        }
+        
+        /* Секции */
         section {
-            padding: 60px 20px;
-            background-size: 100% auto;
-            background-position: center top;
-            background-repeat: no-repeat;
+            padding: 40px 0;
+            width: 100%;
+            position: relative;
         }
+        
         .container {
+            width: 100%;
             max-width: 1200px;
+            padding: 0 15px;
             margin: 0 auto;
-            padding: 0 20px;
         }
-
-        .section1 { background-image: url('images/bg1.jpg'); }
-        .section2 { background-image: url('images/bg2.jpg'); display: flex; align-items: center; justify-content: space-between; gap: 40px; }
-        .section3 { background-image: url('images/bg3.jpg'); }
-        .section4 { background-image: url('images/bg4.jpg'); display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .section5 { background-image: url('images/bg5.jpg'); display: flex; justify-content: space-between; align-items: center; gap: 40px; }
-        .section6 { background-image: url('images/bg6.jpg'); }
-        footer { background-color: #e8d8e0; padding: 40px 20px; text-align: center; font-size: 14px; color: #5c4b5b; }
-
-        .block {
-            background: rgba(255, 255, 255, 0.85);
+        
+        /* Шапка */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('images/bg7.jpg') center/cover no-repeat;
             padding: 20px;
+        }
+        
+        .hero-content {
+            width: 100%;
+            margin-bottom: 40px;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 2rem;
+            font-weight: 400;
+            color: #f8e6f8;
+            text-shadow: 0 3px 15px rgba(160,100,162,0.5);
+            margin: 0 auto 30px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f8e6f8, transparent);
+        }
+        
+        /* Навигация */
+        .main-nav {
+            width: 100%;
+            max-width: 1000px;
+            background: rgba(30, 20, 35, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            border-radius: 50px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .nav-link {
+            color: #f0d8f0;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 8px 15px;
+            position: relative;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover {
+            color: #ffffff;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #f8e6f8;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Блоки контента */
+        .content-block {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            animation: fadeInUp 1s ease forwards;
+            margin-bottom: 30px;
         }
-        .block img {
+        
+        .section-title {
+            font-size: 2rem;
+            color: #6b496d;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #a064a2;
+            border-radius: 2px;
+        }
+        
+        /* Об авторе */
+        .author-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .author-info {
+            order: 2;
+        }
+        
+        .author-photo {
+            order: 1;
+            max-width: 300px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .author-photo img {
             width: 100%;
-            border-radius: 12px;
+            height: auto;
+            display: block;
         }
-        .block h2, .block h3, .block p {
-            margin: 10px 0;
-            font-size: 1.5rem;
+        
+        /* Карточки */
+        .cards-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             text-align: center;
         }
+        
+        .card img {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .card h3 {
+            font-size: 1.4rem;
+            color: #6b496d;
+            margin-bottom: 15px;
+        }
+        
+        .card p {
+            font-size: 1.1rem;
+            color: #4a3f55;
+        }
+        
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #FFD700 0%, #F0E68C 50%, #FFD700 100%);
+            color: #333;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 20px;
+            background-size: 200% auto;
+        }
+        
+        .btn:hover {
+            background-position: -100% center;
+            transform: scale(1.05);
+        }
+        
+        /* Футер */
+        footer {
+            background-color: #1C2443;
+            color: #fff;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .footer-links {
+            margin-top: 15px;
+        }
+        
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.9rem;
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -83,515 +283,245 @@
                 transform: translateY(0);
             }
         }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        .author-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            align-items: flex-start;
-            justify-content: space-between;
-        }
-
-        .author-text {
-            flex: 1 1 60%;
-            font-size: 1.5rem;
-            line-height: 1.8;
-            text-align: justify;
-        }
-
-        .author-photo {
-            flex: 1 1 30%;
-            max-width: 300px;
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
-            border-radius: 1rem;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .author-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            border-radius: 1rem;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .section p, .section ul {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin: 20px auto;
-            max-width: 900px;
-            text-align: center;
-        }
-
-        .section ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .section ul li {
-            margin-bottom: 15px;
-        }
-
-        /* Для карточек */
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1000px;
-            margin: 40px auto;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .card img {
-            width: 100%;
-            border-radius: 8px;
-            max-height: 250px;
-            object-fit: cover;
-        }
-
-        .card p {
-            font-size: 1.3rem;
-            margin-top: 15px;
-            color: #6b496d;
-        }
         
-        /* Обновленные стили для секции "Что такое Тетахилинг" */
-        #theta .container h2 {
-            font-size: 2.2rem;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-
-        #theta .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        #theta .card {
-            background-color: #f8d7eb;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        #theta .card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        #theta .card h3 {
-            font-size: 1.6rem;
-            color: #6b496d;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        #theta .card p {
-            font-size: 1.2rem;
-            line-height: 1.7;
-            color: #4a3f55;
-        }
-
-        /* Мобильные стили */
-        @media (max-width: 768px) {
-            body {
-                font-size: 16px;
-                line-height: 1.5;
-                background-attachment: scroll;
+        /* Мобильная адаптация */
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 4rem;
             }
             
-            .container {
-                padding: 0 15px;
-                width: 100%;
-                box-sizing: border-box;
+            .hero-subtitle {
+                font-size: 3rem;
             }
             
-            section {
-                padding: 30px 15px;
-                background-size: cover;
-                background-attachment: scroll;
+            .nav-links {
+                gap: 30px;
             }
             
-            .section1 {
-                min-height: auto;
-                padding: 60px 15px;
-            }
-            
-            .section1 h1 {
-                font-size: 2.5rem !important;
-                margin-bottom: 15px !important;
-            }
-            
-            .section1 h2 {
-                font-size: 2.2rem !important;
-            }
-            
-            nav {
-                flex-direction: column;
-                padding: 15px;
-                position: relative;
-                border-radius: 0;
-            }
-            
-            nav > div {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            nav a {
+            .nav-link {
                 font-size: 1.1rem;
-                margin: 5px 0;
-                display: block;
-                text-align: center;
+                padding: 10px 0;
             }
             
             .author-section {
-                flex-direction: column;
-                gap: 20px;
+                flex-direction: row;
+                align-items: center;
             }
             
-            .author-text, .author-photo {
-                flex: 1 1 100%;
-                max-width: 100%;
+            .author-info {
+                order: 1;
+                flex: 1;
             }
             
             .author-photo {
-                order: -1;
-                margin: 0 auto;
+                order: 2;
+                flex: 0 0 300px;
+                margin-left: 30px;
             }
             
-            .card-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .section5 .container {
-                flex-direction: column;
-            }
-            
-            .section5 .container > div {
-                width: 100% !important;
-            }
-            
-            #theta .card-container {
-                grid-template-columns: 1fr;
-            }
-            
-            #theta .card {
-                padding: 20px;
-            }
-            
-            h2 {
-                font-size: 1.8rem !important;
-            }
-            
-            h3 {
-                font-size: 1.4rem !important;
-            }
-            
-            p, li {
-                font-size: 1.1rem !important;
-            }
-            
-            footer {
-                padding: 20px 15px;
-            }
-            
-            footer > div {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .block {
-                padding: 15px;
+            .cards-container {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
         
-        @media (max-width: 480px) {
-            .section1 h1 {
-                font-size: 2rem !important;
+        @media (min-width: 992px) {
+            .cards-container {
+                grid-template-columns: repeat(3, 1fr);
             }
             
-            .section1 h2 {
-                font-size: 1.8rem !important;
-            }
-            
-            nav a {
-                font-size: 1rem;
-            }
-            
-            .card {
-                padding: 15px;
+            .section-title {
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
 <body>
 
-<section class="section1" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('images/bg7.jpg') center/cover no-repeat fixed; min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative;">
-    <div class="container" style="width: 100%;">
-        <div style="text-align: center; margin-bottom: 80px; animation: fadeIn 1.5s ease-out;">
-            <h1 style="font-size: 4.5rem; font-weight: 700; color: #fff; margin-bottom: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); letter-spacing: 1px; font-family: 'Playfair Display', serif;">
-                Добро пожаловать на официальный сайт
-            </h1>
-            <div style="display: inline-block; position: relative;">
-                <h2 style="font-size: 5rem; font-weight: 400; color: #f8e6f8; text-shadow: 0 3px 15px rgba(160,100,162,0.5); margin: 0; font-family: 'Playfair Display', serif;">
-                    Алии Свиридовой
-                </h2>
-                <div style="position: absolute; bottom: -15px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #f8e6f8, transparent);"></div>
-            </div>
-        </div>
-
-        <nav style="background: rgba(30, 20, 35, 0.85); backdrop-filter: blur(10px); padding: 20px 40px; border-radius: 50px; max-width: 1200px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div style="display: flex; gap: 30px;">
-                    <a href="#about" style="color: #f0d8f0; text-decoration: none; font-size: 1.2rem; font-weight: 500; letter-spacing: 0.5px; position: relative; padding: 10px 0; transition: all 0.3s ease;">
-                        <span style="position: relative; z-index: 1;">Об авторе</span>
-                        <span style="position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: #f8e6f8; transition: width 0.3s ease;"></span>
-                    </a>
-                    <a href="#theta" style="color: #f0d8f0; text-decoration: none; font-size: 1.2rem; font-weight: 500; letter-spacing: 0.5px; position: relative; padding: 10px 0; transition: all 0.3s ease;">
-                        <span style="position: relative; z-index: 1;">О Тетахилинге</span>
-                        <span style="position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: #f8e6f8; transition: width 0.3s ease;"></span>
-                    </a>
-                    <a href="#levels" style="color: #f0d8f0; text-decoration: none; font-size: 1.2rem; font-weight: 500; letter-spacing: 0.5px; position: relative; padding: 10px 0; transition: all 0.3s ease;">
-                        <span style="position: relative; z-index: 1;">Уровни</span>
-                        <span style="position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: #f8e6f8; transition: width 0.3s ease;"></span>
-                    </a>
-                    <a href="#benefits" style="color: #f0d8f0; text-decoration: none; font-size: 1.2rem; font-weight: 500; letter-spacing: 0.5px; position: relative; padding: 10px 0; transition: all 0.3s ease;">
-                        <span style="position: relative; z-index: 1;">Польза</span>
-                        <span style="position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: #f8e6f8; transition: width 0.3s ease;"></span>
-                    </a>
-                    <a href="#contacts" style="color: #f0d8f0; text-decoration: none; font-size: 1.2rem; font-weight: 500; letter-spacing: 0.5px; position: relative; padding: 10px 0; transition: all 0.3s ease;">
-                        <span style="position: relative; z-index: 1;">Контакты</span>
-                        <span style="position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: #f8e6f8; transition: width 0.3s ease;"></span>
-                    </a>
-                </div>
-
-                <div>
-                    <a href="https://t.me/aliyakati">Telegram</a>
-                    <a href="https://www.instagram.com/aliyakatifovna/#">Instagram</a>
-                </div>
-            </div>
-        </nav>
-
-        <div style="position: absolute; bottom: 50px; left: 0; right: 0; text-align: center;">
-            <div style="display: inline-block; width: 40px; height: 60px; border: 2px solid rgba(255,255,255,0.3); border-radius: 20px; position: relative;">
-                <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; background: rgba(255,255,255,0.5); border-radius: 50%; animation: scrollDown 2s infinite;"></div>
-            </div>
-        </div>
+<!-- Герой секция -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">Добро пожаловать на официальный сайт</h1>
+        <h2 class="hero-subtitle">Алии Свиридовой</h2>
     </div>
-</section>
-
-<style>
-    @keyframes scrollDown {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(20px); opacity: 0; }
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    nav a:hover {
-        color: #ffffff !important;
-    }
-
-    nav a:hover span:last-child {
-        width: 100%;
-    }
-
-    nav a svg {
-        transition: all 0.3s ease;
-    }
-
-    nav a:hover svg {
-        transform: scale(1.2);
-    }
-
-    nav a:hover {
-        background: rgba(255,255,255,0.2) !important;
-    }
     
-    #benefits button:hover {
-        background-position: -100% center;
-        transform: scale(1.05);
-    }
-</style>
-
-<section class="section5" id="benefits">
-    <div class="container" style="display: flex; align-items: center; gap: 30px; padding-bottom: 80px; position: relative;">
-        <div style="flex-shrink: 0; width: 40%;">
-            <img src="images/benefits.jpg" alt="Польза" style="width: 100%; border-radius: 10px;">
+    <nav class="main-nav">
+        <div class="nav-links">
+            <a href="#about" class="nav-link">Об авторе</a>
+            <a href="#theta" class="nav-link">О Тетахилинге</a>
+            <a href="#levels" class="nav-link">Уровни</a>
+            <a href="#benefits" class="nav-link">Польза</a>
+            <a href="#contacts" class="nav-link">Контакты</a>
         </div>
-        <div style="flex: 1; text-align: left; position: relative;">
-            <h2 style="color: #6b496d; margin-bottom: 30px; text-align: left;">🧠 Что такое Тетахилинг</h2>
-            <h3>Преимущества Тетахилинга</h3>
-            <ul style="list-style-type: disc; padding-left: 20px; margin-bottom: 40px;">
-                <li>Быстрая трансформация старых блоков и ограничений</li>
-                <li>Глубокое понимание и гармонизация своих эмоций</li>
-                <li>Возвращение уверенности в себе и своих силах</li>
-                <li>Привлечение нужных обстоятельств и ресурсов</li>
-                <li>Укрепление здоровья и энергетического баланса</li>
-            </ul>
-            <a href="#robokassa" style="display: inline-block; text-decoration: none;">
-                <button style="background: linear-gradient(90deg, #FFD700 0%, #F0E68C 50%, #FFD700 100%); color: #333; border: none; padding: 15px 30px; border-radius: 8px; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); transition: background-position 0.5s ease-in-out, transform 0.2s ease-in-out; background-size: 200% auto;">
-                    Записаться на практикум →
-                </button>
-            </a>
-        </div>
-    </div>
+    </nav>
 </section>
 
-<section class="section2" id="about">
+<!-- Секция "Об авторе" -->
+<section id="about" class="section">
     <div class="container">
-        <div class="block author-section" style="background: linear-gradient(135deg, rgba(255,240,245,0.8) 0%, rgba(255,255,255,0.9) 100%); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(107, 73, 109, 0.15); display: flex; align-items: center; padding: 30px;">
-            <div class="author-text" style="flex: 1; padding: 30px;">
-                <h2 style="font-size: 2rem; color: #6b496d; margin-bottom: 20px; position: relative; display: inline-block;">
-                    <span style="content: ''; position: absolute; bottom: -8px; left: 0; width: 50px; height: 3px; background: #a064a2; border-radius: 2px;"></span>
-                    Об авторе
-                </h2>
-
-                <p style="font-size: 1.2rem; line-height: 1.7; color: #4a3f55; margin-bottom: 20px;">
-                    <span style="font-size: 1.6rem; position: absolute; left: -25px; top: 3px; color: #a064a2;">💛</span>
-                    Приветствую Вас! Меня зовут <strong style="color: #8a4a8c; font-weight: 600;">АЛИЯ СВИРИДОВА</strong> — преподаватель методики Тетахилинг с практическим опытом более <strong>12 лет</strong> и медицинским образованием. Я — инструктор по работе с подсознанием.
-                </p>
-
-                <p style="font-size: 1.2rem; line-height: 1.7; color: #4a3f55; margin-bottom: 20px; padding: 10px; background: rgba(160, 100, 162, 0.05); border-left: 3px solid #a064a2; border-radius: 0 5px 5px 0;">
-                    С помощью моих программ более <strong style="color: #8a4a8c;">5000 клиентов и учеников</strong> уже изменили свою жизнь к лучшему.
-                </p>
-
-                <div style="background: rgba(255, 255, 255, 0.6); border-radius: 10px; padding: 15px; margin: 20px 0; box-shadow: 0 3px 10px rgba(0,0,0,0.03);">
-                    <p style="font-size: 1.2rem; margin-bottom: 15px; display: flex; align-items: center;">
-                        <span style="background: #f0d8f0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0;">🎁</span>
-                        Я подготовила для вас <strong>бонусное полезное видео</strong>, где рассказала:
+        <div class="content-block">
+            <h2 class="section-title">Об авторе</h2>
+            
+            <div class="author-section">
+                <div class="author-info">
+                    <p>
+                        <span style="font-size: 1.6rem; color: #a064a2;">💛</span>
+                        Приветствую Вас! Меня зовут <strong style="color: #8a4a8c;">АЛИЯ СВИРИДОВА</strong> — преподаватель методики Тетахилинг с практическим опытом более <strong>12 лет</strong> и медицинским образованием. Я — инструктор по работе с подсознанием.
                     </p>
+                    
+                    <p style="padding: 10px; background: rgba(160, 100, 162, 0.05); border-left: 3px solid #a064a2; border-radius: 0 5px 5px 0; margin: 20px 0;">
+                        С помощью моих программ более <strong style="color: #8a4a8c;">5000 клиентов и учеников</strong> уже изменили свою жизнь к лучшему.
+                    </p>
+                    
+                    <div style="background: rgba(255, 255, 255, 0.6); border-radius: 10px; padding: 15px; margin: 20px 0;">
+                        <p style="margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="background: #f0d8f0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px;">🎁</span>
+                            Я подготовила для вас <strong>бонусное полезное видео</strong>, где рассказала:
+                        </p>
+                        
+                        <ul style="list-style-type: none; padding-left: 20px;">
+                            <li style="position: relative; padding-left: 20px; margin-bottom: 10px;">
+                                <span style="position: absolute; left: 0; color: #a064a2;">•</span> Какие негативные установки бывают и откуда они берутся;
+                            </li>
+                            <li style="position: relative; padding-left: 20px; margin-bottom: 10px;">
+                                <span style="position: absolute; left: 0; color: #a064a2;">•</span> Как их убрать, чтобы в жизнь легко приходило всё, что мы захотим;
+                            </li>
+                            <li style="position: relative; padding-left: 20px; margin-bottom: 10px;">
+                                <span style="position: absolute; left: 0; color: #a064a2;">•</span> О 4-х уровнях убеждений и программ, мешающих финансам, здоровью, отношениям и благополучию;
+                            </li>
+                            <li style="position: relative; padding-left: 20px; margin-bottom: 10px;">
+                                <span style="position: absolute; left: 0; color: #a064a2;">•</span> Об онлайн-практикуме, который пройдёт <strong>25 марта</strong>, куда может попасть любой желающий.
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <p style="text-align: center; color: #8a4a8c; font-weight: 500; margin-top: 20px;">
+                        <strong>Пусть любви в вашей жизни становится больше!</strong>
+                    </p>
+                </div>
+                
+                <div class="author-photo">
+                    <img src="images/author.jpg" alt="Алия Свиридова">
+                    <div style="background: linear-gradient(to top, rgba(107,73,109,0.6) 0%, transparent 100%); padding: 15px; text-align: center;">
+                        <p style="color: white; margin: 0;">Алия Свиридова</p>
+                        <p style="color: #f0d8f0; margin: 3px 0 0; font-size: 0.9rem;">Инструктор Тетахилинга</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-                    <ul style="list-style-type: none; padding-left: 0; margin-left: 50px;">
-                        <li style="position: relative; padding-left: 25px; margin-bottom: 10px; font-size: 1.1rem; line-height: 1.5;">
-                            <span style="position: absolute; left: 0; color: #a064a2;">•</span> Какие негативные установки бывают и откуда они берутся;
-                        </li>
-                        <li style="position: relative; padding-left: 25px; margin-bottom: 10px; font-size: 1.1rem; line-height: 1.5;">
-                            <span style="position: absolute; left: 0; color: #a064a2;">•</span> Как их убрать, чтобы в жизнь легко приходило всё, что мы захотим;
-                        </li>
-                        <li style="position: relative; padding-left: 25px; margin-bottom: 10px; font-size: 1.1rem; line-height: 1.5;">
-                            <span style="position: absolute; left: 0; color: #a064a2;">•</span> О 4-х уровнях убеждений и программ, мешающих финансам, здоровью, отношениям и благополучию;
-                        </li>
-                        <li style="position: relative; padding-left: 25px; margin-bottom: 10px; font-size: 1.1rem; line-height: 1.5;">
-                            <span style="position: absolute; left: 0; color: #a064a2;">•</span> Об онлайн-практикуме, который пройдёт <strong>25 марта</strong>, куда может попасть любой желающий.
-                        </li>
+<!-- Секция "Что такое Тетахилинг" -->
+<section id="theta" class="section">
+    <div class="container">
+        <div class="content-block">
+            <h2 class="section-title">🧠 Что такое Тетахилинг</h2>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <img src="images/theta1.jpg" alt="Основы Тетахилинга">
+                    <h3>Основы метода</h3>
+                    <p><strong>Тетахилинг</strong> - духовно-энергетическая практика, работающая с подсознанием через тета-состояние мозга (4-7 Гц). Метод создан Вианной Стайбл в 1995 году после её чудесного исцеления.</p>
+                </div>
+                
+                <div class="card">
+                    <img src="images/theta2.jpg" alt="Как работает">
+                    <h3>Как это работает</h3>
+                    <p>В тета-состоянии мы можем напрямую общаться с Божественным источником, находить и трансформировать глубинные убеждения, страхи и травмы, мешающие жить полноценно и счастливо.</p>
+                </div>
+                
+                <div class="card">
+                    <img src="images/theta3.jpg" alt="Преимущества">
+                    <h3>Преимущества</h3>
+                    <p>Исцеление тела и души, изменение ограничивающих программ, улучшение отношений и финансов, раскрытие потенциала. Это путь к внутренней свободе, балансу и высокой вибрации жизни.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Секция "Что дает Тетахилинг" -->
+<section id="levels" class="section">
+    <div class="container">
+        <div class="content-block">
+            <h2 class="section-title">🧠 Что дает Тетахилинг</h2>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <img src="images/card1.webp" alt="Материальные блага">
+                    <p>Научитесь <strong>привлекать материальные блага</strong> через энергию</p>
+                </div>
+                
+                <div class="card">
+                    <img src="images/card2.webp" alt="Исцеление эмоций">
+                    <p>Работайте с <strong>эмоциями и убеждениями</strong>, которые мешают вам двигаться вперёд</p>
+                </div>
+                
+                <div class="card">
+                    <img src="images/card3.webp" alt="Духовная связь">
+                    <p>Углубите <strong>связь с собой</strong> и откройте внутреннюю мудрость</p>
+                </div>
+                
+                <div class="card">
+                    <img src="images/card4.webp" alt="Энергия изобилия">
+                    <p>Освойте <strong>энергию изобилия</strong> и начните привлекать нужные ресурсы</p>
+                </div>
+                
+                <div class="card">
+                    <img src="images/card5.webp" alt="Целительные практики">
+                    <p>Познайте <strong>целительные практики</strong> и помогайте себе и другим</p>
+                </div>
+                
+                <div class="card">
+                    <img src="images/card6.webp" alt="Уверенность и сила">
+                    <p>Развивайте <strong>уверенность и внутреннюю силу</strong> через практику Тетахилинга</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Секция "Преимущества" -->
+<section id="benefits" class="section">
+    <div class="container">
+        <div class="content-block">
+            <h2 class="section-title">Преимущества Тетахилинга</h2>
+            
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+                <div style="display: flex; flex-direction: column; gap: 20px;">
+                    <h3 style="color: #6b496d; font-size: 1.5rem;">Польза практики</h3>
+                    
+                    <ul style="list-style-type: disc; padding-left: 20px;">
+                        <li style="margin-bottom: 10px;">Быстрая трансформация старых блоков и ограничений</li>
+                        <li style="margin-bottom: 10px;">Глубокое понимание и гармонизация своих эмоций</li>
+                        <li style="margin-bottom: 10px;">Возвращение уверенности в себе и своих силах</li>
+                        <li style="margin-bottom: 10px;">Привлечение нужных обстоятельств и ресурсов</li>
+                        <li style="margin-bottom: 10px;">Укрепление здоровья и энергетического баланса</li>
                     </ul>
+                    
+                    <a href="#robokassa" class="btn">Записаться на практикум →</a>
                 </div>
-
-                <p style="font-size: 1.3rem; text-align: center; color: #8a4a8c; font-weight: 500; margin-top: 20px; padding: 10px; background: rgba(160, 100, 162, 0.08); border-radius: 10px;">
-                    <strong>Пусть любви в вашей жизни становится больше!</strong>
-                </p>
-            </div>
-
-            <div class="author-photo" style="flex-shrink: 0; width: 30%; height: auto; overflow: hidden; border-radius: 0 15px 15px 0; position: relative;">
-                <img src="images/author.jpg" alt="Автор" style="width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3 / 4; transition: transform 0.3s ease;">
-                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(107,73,109,0.6) 0%, transparent 100%); padding: 20px 15px; text-align: center;">
-                    <p style="color: white; font-size: 1rem; margin: 0; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Алия Свиридова</p>
-                    <p style="color: #f0d8f0; font-size: 0.9rem; margin: 3px 0 0; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Инструктор Тетахилинга</p>
+                
+                <div>
+                    <img src="images/benefits.jpg" alt="Польза Тетахилинга" style="width: 100%; border-radius: 10px;">
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section3" id="theta">
-    <div class="container">
-        <h2 style="color: #6b496d; margin-bottom: 40px; text-align: center;">🧠 Что такое Тетахилинг</h2>
-        <div class="card-container" style="grid-template-columns: repeat(3, 1fr);">
-            <div class="card">
-                <img src="images/theta1.jpg" alt="Основы Тетахилинга">
-                <h3>Основы метода</h3>
-                <p><strong>Тетахилинг</strong> - духовно-энергетическая практика, работающая с подсознанием через тета-состояние мозга (4-7 Гц). Метод создан Вианной Стайбл в 1995 году после её чудесного исцеления.</p>
-            </div>
-
-            <div class="card">
-                <img src="images/theta2.jpg" alt="Как работает">
-                <h3>Как это работает</h3>
-                <p>В тета-состоянии мы можем напрямую общаться с Божественным источником, находить и трансформировать глубинные убеждения, страхи и травмы, мешающие жить полноценно и счастливо.</p>
-            </div>
-
-            <div class="card">
-                <img src="images/theta3.jpg" alt="Преимущества">
-                <h3>Преимущества</h3>
-                <p>Исцеление тела и души, изменение ограничивающих программ, улучшение отношений и финансов, раскрытие потенциала. Это путь к внутренней свободе, балансу и высокой вибрации жизни.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section4" id="levels">
-    <div class="container">
-        <h2 style="color: #6b496d; margin-bottom: 40px; text-align: center;">🧠 Что дает Тетахилинг</h2>
-        <div class="card-container">
-            <div class="card">
-                <img src="images/card1.webp" alt="Материальные блага">
-                <p class="cst-card__text">Научитесь <strong>привлекать<br>материальные блага</strong><br>через энергию</p>
-            </div>
-            <div class="card">
-                <img src="images/card2.webp" alt="Исцеление эмоций">
-                <p>Работайте с <strong>эмоциями и убеждениями</strong>, которые мешают вам двигаться вперёд</p>
-            </div>
-            <div class="card">
-                <img src="images/card3.webp" alt="Духовная связь">
-                <p>Углубите <strong>связь с собой</strong> и откройте внутреннюю мудрость</p>
-            </div>
-            <div class="card">
-                <img src="images/card4.webp" alt="Энергия изобилия">
-                <p>Освойте <strong>энергию изобилия</strong> и начните привлекать нужные ресурсы</p>
-            </div>
-            <div class="card">
-                <img src="images/card5.webp" alt="Целительные практики">
-                <p>Познайте <strong>целительные практики</strong> и помогайте себе и другим</p>
-            </div>
-            <div class="card">
-                <img src="images/card6.webp" alt="Уверенность и сила">
-                <p>Развивайте <strong>уверенность и внутреннюю силу</strong> через практику Тетахилинга</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<footer style="background-color: #1C2443; color: #fff; padding: 20px; text-align: center;">
-    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; font-size: 0.9em;">
+<!-- Футер -->
+<footer id="contacts">
+    <div class="footer-content">
         <p>© 2025 Ваш сайт. Все права защищены.</p>
         <p>Астана, Казахстан</p>
         <p>Тел.: +7 777 689 68 77</p>
         <p>Email: alialubov@gmail.com</p>
-        <div style="margin-top: 10px;">
-            <a href="privacy.html" style="color: #fff; text-decoration: none; margin: 0 10px;">Политика конфиденциальности</a>
-            <span style="color: #fff; margin: 0 5px;">|</span>
-            <a href="offer.html" style="color: #fff; text-decoration: none; margin: 0 10px;">Договор публичной оферты</a>
+        
+        <div class="footer-links">
+            <a href="privacy.html">Политика конфиденциальности</a>
+            <span>|</span>
+            <a href="offer.html">Договор публичной оферты</a>
         </div>
     </div>
 </footer>
