@@ -27,11 +27,11 @@
             overflow: hidden;
         }
         
-        /* Главный баннер (уменьшенная высота) */
+        /* Главный баннер */
         .hero-section {
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), 
                         url('images/bg7.jpg') center/cover no-repeat;
-            min-height: 70vh; /* Уменьшенная высота */
+            min-height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -78,7 +78,7 @@
             width: 100%;
             text-align: center;
             animation: fadeIn 1.5s ease-out;
-            padding: 40px 0; /* Добавлен отступ */
+            padding: 40px 0;
         }
         
         .hero-title {
@@ -328,6 +328,85 @@
             to { opacity: 1; }
         }
         
+        /* Об авторе - исправленная секция */
+        .author-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .author-photo {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+
+        .author-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 3/4;
+        }
+
+        .author-info {
+            width: 100%;
+        }
+
+        .highlight-box {
+            padding: 10px;
+            background: rgba(160, 100, 162, 0.05);
+            border-left: 3px solid #a064a2;
+            border-radius: 0 5px 5px 0;
+            margin: 20px 0;
+        }
+
+        .bonus-box {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .bonus-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .bonus-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        .bonus-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #a064a2;
+        }
+
+        @media (min-width: 768px) {
+            .author-section {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            
+            .author-photo {
+                flex: 0 0 300px;
+                margin-left: 30px;
+                margin-right: 0;
+            }
+            
+            .author-info {
+                flex: 1;
+            }
+        }
+
         /* Мобильная адаптация */
         @media (max-width: 768px) {
             /* Бургер-меню */
@@ -471,29 +550,21 @@
                         Приветствую Вас! Меня зовут <strong style="color: #8a4a8c;">АЛИЯ СВИРИДОВА</strong> — преподаватель методики Тетахилинг с практическим опытом более <strong>12 лет</strong> и медицинским образованием. Я — инструктор по работе с подсознанием.
                     </p>
                     
-                    <p style="padding: 10px; background: rgba(160, 100, 162, 0.05); border-left: 3px solid #a064a2; border-radius: 0 5px 5px 0; margin: 20px 0;">
+                    <div class="highlight-box">
                         С помощью моих программ более <strong style="color: #8a4a8c;">5000 клиентов и учеников</strong> уже изменили свою жизнь к лучшему.
-                    </p>
+                    </div>
                     
-                    <div style="background: rgba(255, 255, 255, 0.6); border-radius: 10px; padding: 15px; margin: 20px 0;">
+                    <div class="bonus-box">
                         <p style="margin-bottom: 15px; display: flex; align-items: center;">
                             <span style="background: #f0d8f0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px;">🎁</span>
                             Я подготовила для вас <strong>бонусное полезное видео</strong>, где рассказала:
                         </p>
                         
-                        <ul style="list-style-type: none; padding-left: 20px;">
-                            <li style="position: relative; padding-left: 20px; margin-bottom: 10px;">
-                                <span style="position: absolute; left: 0; color: #a064a2;">•</span> Какие негативные установки бывают и откуда они берутся;
-                            </li>
-                            <li style="position: relative; padding-left: 20px; margin-bottom: 10px;">
-                                <span style="position: absolute; left: 0; color: #a064a2;">•</span> Как их убрать, чтобы в жизнь легко приходило всё, что мы захотим;
-                            </li>
-                            <li style="position: relative; padding-left: 20px; margin-bottom: 10px;">
-                                <span style="position: absolute; left: 0; color: #a064a2;">•</span> О 4-х уровнях убеждений и программ, мешающих финансам, здоровью, отношениям и благополучию;
-                            </li>
-                            <li style="position: relative; padding-left: 20px; margin-bottom: 10px;">
-                                <span style="position: absolute; left: 0; color: #a064a2;">•</span> Об онлайн-практикуме, который пройдёт <strong>25 марта</strong>, куда может попасть любой желающий.
-                            </li>
+                        <ul class="bonus-list">
+                            <li>Какие негативные установки бывают и откуда они берутся;</li>
+                            <li>Как их убрать, чтобы в жизнь легко приходило всё, что мы захотим;</li>
+                            <li>О 4-х уровнях убеждений и программ, мешающих финансам, здоровью, отношениям и благополучию;</li>
+                            <li>Об онлайн-практикуме, который пройдёт <strong>25 марта</strong>, куда может попасть любой желающий.</li>
                         </ul>
                     </div>
                     
