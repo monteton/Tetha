@@ -127,7 +127,6 @@
             font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 20px;
-
             text-align: center;
         }
 
@@ -177,24 +176,25 @@
             margin-top: 15px;
             color: #6b496d;
         }
+        
         /* Обновленные стили для секции "Что такое Тетахилинг" */
         #theta .container h2 {
-            font-size: 2.2rem; /* Увеличим размер основного заголовка */
-            margin-bottom: 50px; /* Увеличим отступ */
-            text-align: center; /* Убедимся, что заголовок по центру */
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            text-align: center;
         }
 
         #theta .card-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Сделаем карточки шире */
-            gap: 30px; /* Увеличим расстояние между карточками */
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
         }
 
         #theta .card {
-            background-color: #f8d7eb; /* Цвет фона карточек (можно изменить) */
-            padding: 30px; /* Увеличим внутренний отступ */
+            background-color: #f8d7eb;
+            padding: 30px;
             border-radius: 10px;
-            text-align: center; /* Центрируем содержимое карточек по умолчанию */
+            text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
         }
 
@@ -202,22 +202,154 @@
             max-width: 100%;
             height: auto;
             border-radius: 8px;
-            margin-bottom: 20px; /* Увеличим отступ под картинкой */
+            margin-bottom: 20px;
         }
 
         #theta .card h3 {
-            font-size: 1.6rem; /* Увеличим размер подзаголовка */
+            font-size: 1.6rem;
             color: #6b496d;
             margin-bottom: 15px;
-            text-align: center; /* Название по центру */
+            text-align: center;
         }
 
         #theta .card p {
-            font-size: 1.2rem; /* Увеличим размер текста */
+            font-size: 1.2rem;
             line-height: 1.7;
             color: #4a3f55;
         }
 
+        /* Мобильные стили */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+                line-height: 1.5;
+                background-attachment: scroll;
+            }
+            
+            .container {
+                padding: 0 15px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            section {
+                padding: 30px 15px;
+                background-size: cover;
+                background-attachment: scroll;
+            }
+            
+            .section1 {
+                min-height: auto;
+                padding: 60px 15px;
+            }
+            
+            .section1 h1 {
+                font-size: 2.5rem !important;
+                margin-bottom: 15px !important;
+            }
+            
+            .section1 h2 {
+                font-size: 2.2rem !important;
+            }
+            
+            nav {
+                flex-direction: column;
+                padding: 15px;
+                position: relative;
+                border-radius: 0;
+            }
+            
+            nav > div {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav a {
+                font-size: 1.1rem;
+                margin: 5px 0;
+                display: block;
+                text-align: center;
+            }
+            
+            .author-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .author-text, .author-photo {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+            
+            .author-photo {
+                order: -1;
+                margin: 0 auto;
+            }
+            
+            .card-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .section5 .container {
+                flex-direction: column;
+            }
+            
+            .section5 .container > div {
+                width: 100% !important;
+            }
+            
+            #theta .card-container {
+                grid-template-columns: 1fr;
+            }
+            
+            #theta .card {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 1.8rem !important;
+            }
+            
+            h3 {
+                font-size: 1.4rem !important;
+            }
+            
+            p, li {
+                font-size: 1.1rem !important;
+            }
+            
+            footer {
+                padding: 20px 15px;
+            }
+            
+            footer > div {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .block {
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .section1 h1 {
+                font-size: 2rem !important;
+            }
+            
+            .section1 h2 {
+                font-size: 1.8rem !important;
+            }
+            
+            nav a {
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -268,7 +400,6 @@
             </div>
         </nav>
 
-
         <div style="position: absolute; bottom: 50px; left: 0; right: 0; text-align: center;">
             <div style="display: inline-block; width: 40px; height: 60px; border: 2px solid rgba(255,255,255,0.3); border-radius: 20px; position: relative;">
                 <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 6px; height: 6px; background: rgba(255,255,255,0.5); border-radius: 50%; animation: scrollDown 2s infinite;"></div>
@@ -307,124 +438,10 @@
     nav a:hover {
         background: rgba(255,255,255,0.2) !important;
     }
-    /* Стили для мобильных устройств */
-    @media (max-width: 768px) {
-        body {
-            font-size: 16px; /* Увеличим базовый размер шрифта */
-            line-height: 1.5;
-        }
-
-        section {
-            padding: 30px 15px; /* Уменьшим отступы по бокам */
-            padding-bottom: 60px; /* Уменьшим нижний отступ */
-        }
-
-        section > div {
-            padding: 20px; /* Уменьшим внутренние отступы контейнера секции */
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 25px;
-        }
-
-        h3 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-        }
-
-        /* Секция 2: Меню и соцсети */
-        #menu-social {
-            flex-direction: column; /* Переведем меню и соцсети в вертикальный столбец */
-            align-items: center;
-            padding: 10px 15px;
-        }
-
-        #menu ul {
-            flex-direction: column; /* Сделаем пункты меню вертикальными */
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        #menu li {
-            margin: 5px 0;
-        }
-
-        #social-links a {
-            margin: 0 5px;
-        }
-
-        /* Секция 3: Об авторе */
-        #about-author {
-            flex-direction: column; /* Переведем текст и фото в вертикальный столбец */
-            align-items: center;
-            text-align: center; /* Центрируем текст */
-        }
-
-        #about-author .right-column {
-            width: 80%; /* Установим ширину фото */
-            margin-top: 20px;
-        }
-
-        /* Секция 5: Уровни саморазвития */
-        #self-development {
-            grid-template-columns: 1fr; /* Отобразим блоки в один столбец */
-        }
-
-        /* Секция 6: Польза и результаты */
-        #benefits {
-            flex-direction: column; /* Переведем текст и фото в вертикальный столбец */
-            align-items: center;
-            text-align: center; /* Центрируем текст */
-        }
-
-        #benefits .right-column {
-            width: 80%; /* Установим ширину фото */
-            margin-top: 20px;
-        }
-
-        #benefits .container {
-            flex-direction: column; /* Переведем контейнер в вертикальный столбец */
-            align-items: center;
-        }
-
-        #benefits .container > div {
-            width: 100%; /* Займем всю ширину */
-            text-align: center; /* Центрируем содержимое */
-        }
-
-        #benefits .container > div:first-child {
-            margin-bottom: 20px; /* Добавим отступ между фото и текстом */
-        }
-
-        /* Секция 7: Контакты */
-        #contacts form {
-            max-width: 90%; /* Уменьшим ширину формы */
-        }
-
-        /* Футер */
-        footer .container {
-            flex-direction: column; /* Переведем элементы футера в вертикальный столбец */
-            align-items: center;
-            text-align: center;
-        }
-
-        footer .container > div {
-            text-align: center !important; /* Переопределим выравнивание */
-            margin-bottom: 10px;
-        }
-
-        footer .container > div:last-child {
-            margin-bottom: 0;
-        }
-
-        footer .container a {
-            margin: 0 10px;
-        }
-    }
+    
     #benefits button:hover {
-        background-position: -100% center; /* Сдвигаем фон при наведении */
-        transform: scale(1.05); /* Небольшое увеличение при наведении */
+        background-position: -100% center;
+        transform: scale(1.05);
     }
 </style>
 
@@ -451,6 +468,7 @@
         </div>
     </div>
 </section>
+
 <section class="section2" id="about">
     <div class="container">
         <div class="block author-section" style="background: linear-gradient(135deg, rgba(255,240,245,0.8) 0%, rgba(255,255,255,0.9) 100%); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(107, 73, 109, 0.15); display: flex; align-items: center; padding: 30px;">
@@ -563,6 +581,7 @@
         </div>
     </div>
 </section>
+
 <footer style="background-color: #1C2443; color: #fff; padding: 20px; text-align: center;">
     <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; font-size: 0.9em;">
         <p>© 2025 Ваш сайт. Все права защищены.</p>
@@ -576,5 +595,6 @@
         </div>
     </div>
 </footer>
+
 </body>
 </html>
