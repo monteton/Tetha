@@ -143,44 +143,29 @@
         
         .nav-container {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            position: relative;
         }
         
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
+        /* Ссылки на соцсети - всегда видны */
         .social-links {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            gap: 15px;
         }
         
-        .nav-link, .social-link {
+        .social-link {
             color: #f0d8f0;
             text-decoration: none;
             font-size: 1rem;
             font-weight: 500;
-            padding: 8px 15px;
+            padding: 8px 0;
             position: relative;
             transition: all 0.3s ease;
             white-space: nowrap;
         }
         
-        .social-link {
-            padding: 8px 0;
-        }
-        
-        .nav-link:hover, .social-link:hover {
-            color: #ffffff;
-        }
-        
-        .nav-link::after, .social-link::after {
+        .social-link::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -191,7 +176,66 @@
             transition: width 0.3s ease;
         }
         
-        .nav-link:hover::after, .social-link:hover::after {
+        .social-link:hover {
+            color: #ffffff;
+        }
+        
+        .social-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Бургер-меню */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        .burger-line {
+            width: 100%;
+            height: 3px;
+            background: #f0d8f0;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        /* Основное меню */
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            color: #f0d8f0;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #f8e6f8;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #ffffff;
+        }
+        
+        .nav-link:hover::after {
             width: 100%;
         }
         
@@ -431,8 +475,36 @@
                 font-size: 1.8rem;
             }
             
-            .nav-container {
+            /* Бургер-меню */
+            .burger-menu {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(30, 20, 35, 0.95);
                 flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: right 0.4s ease;
+                z-index: 90;
+                padding: 20px;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-link {
+                font-size: 1.2rem;
+                padding: 10px 0;
             }
             
             .section-title {
@@ -446,6 +518,19 @@
             .author-photo {
                 margin-bottom: 20px;
             }
+            
+            /* Анимация бургера */
+            .burger-menu.active .burger-line:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            
+            .burger-menu.active .burger-line:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .burger-menu.active .burger-line:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
         }
         
         @media (min-width: 768px) {
@@ -455,12 +540,6 @@
             
             .hero-subtitle {
                 font-size: 3rem;
-            }
-            
-            .nav-container {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
             }
             
             .nav-links {
@@ -473,7 +552,6 @@
             
             .nav-link, .social-link {
                 font-size: 1.1rem;
-                padding: 10px 0;
             }
             
             .author-section {
@@ -519,6 +597,20 @@
     
     <nav class="main-nav">
         <div class="nav-container">
+            <!-- Ссылки на соцсети - всегда видны -->
+            <div class="social-links">
+                <a href="https://t.me/aliyakati" class="social-link">Telegram</a>
+                <a href="https://www.instagram.com/aliyakatifovna/#" class="social-link">Instagram</a>
+            </div>
+            
+            <!-- Бургер-меню для мобильных -->
+            <div class="burger-menu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+            </div>
+            
+            <!-- Основное меню -->
             <div class="nav-links">
                 <a href="#about" class="nav-link">Об авторе</a>
                 <a href="#theta" class="nav-link">О Тетахилинге</a>
@@ -526,17 +618,13 @@
                 <a href="#benefits" class="nav-link">Польза</a>
                 <a href="#contacts" class="nav-link">Контакты</a>
             </div>
-            <div class="social-links">
-                <a href="https://t.me/aliyakati" class="social-link">Telegram</a>
-                <a href="https://www.instagram.com/aliyakatifovna/#" class="social-link">Instagram</a>
-            </div>
         </div>
     </nav>
     
     <div class="scroll-indicator"></div>
 </section>
 
-<!-- Секция "Об авторе" -->
+<!-- Остальные секции остаются без изменений -->
 <section id="about" class="parallax-section">
     <div class="container">
         <div class="content-block">
@@ -749,6 +837,12 @@
                     top: targetElement.offsetTop,
                     behavior: 'smooth'
                 });
+                
+                // Закрываем меню после клика (для мобильных)
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.nav-links').classList.remove('active');
+                    document.querySelector('.burger-menu').classList.remove('active');
+                }
             }
         });
     });
@@ -766,6 +860,15 @@
         
         requestAnimationFrame(updateParallax);
     }
+    
+    // Бургер-меню
+    const burgerMenu = document.querySelector('.burger-menu');
+    const navLinks = document.querySelector('.nav-links');
+    
+    burgerMenu.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
     
     // Запускаем параллакс только на десктопных устройствах
     if (window.innerWidth > 768) {
