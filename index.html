@@ -27,7 +27,7 @@
         }
         
         .hero-section {
-            min-height: 50vh;
+            min-height: 35vh; /* Уменьшенная высота */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -106,7 +106,7 @@
         
         .main-nav {
             width: 100%;
-            max-width: 1000px;
+            max-width: 800px;
             background: rgba(30, 20, 35, 0.85);
             backdrop-filter: blur(10px);
             padding: 12px 20px;
@@ -118,13 +118,16 @@
         
         .nav-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
+            gap: 15px;
         }
         
         .social-links {
             display: flex;
-            gap: 15px;
+            justify-content: center;
+            width: 100%;
+            gap: 25px;
         }
         
         .social-link {
@@ -170,7 +173,9 @@
         
         .nav-links {
             display: flex;
-            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
         }
         
         .nav-link {
@@ -388,11 +393,21 @@
             .cards-container {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .nav-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            
+            .social-links {
+                width: auto;
+                order: -1;
+            }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 767px) {
             .hero-section {
-                min-height: 40vh;
+                min-height: 30vh; /* Уменьшенная высота для мобильных */
             }
             
             .hero-title {
@@ -407,54 +422,12 @@
                 font-size: 1.8rem;
             }
             
+            .social-links {
+                gap: 15px;
+            }
+            
             .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                max-width: 280px;
-                height: 100vh;
-                background: rgba(30, 20, 35, 0.95);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 25px;
-                transition: right 0.3s ease;
-                z-index: 90;
-                padding: 20px;
-            }
-            
-            .nav-links.active {
-                right: 0;
-            }
-            
-            .burger-menu {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                width: 30px;
-                height: 21px;
-                cursor: pointer;
-                z-index: 100;
-            }
-            
-            .burger-line {
-                width: 100%;
-                height: 3px;
-                background: #f0d8f0;
-                transition: all 0.3s ease;
-            }
-            
-            .burger-menu.active .burger-line:nth-child(1) {
-                transform: translateY(9px) rotate(45deg);
-            }
-            
-            .burger-menu.active .burger-line:nth-child(2) {
-                opacity: 0;
-            }
-            
-            .burger-menu.active .burger-line:nth-child(3) {
-                transform: translateY(-9px) rotate(-45deg);
+                gap: 10px;
             }
         }
         
@@ -500,12 +473,6 @@
                     </a>
                 </div>
                 
-                <div class="burger-menu">
-                    <div class="burger-line"></div>
-                    <div class="burger-line"></div>
-                    <div class="burger-line"></div>
-                </div>
-                
                 <div class="nav-links">
                     <a href="#about" class="nav-link">Об авторе</a>
                     <a href="#theta" class="nav-link">О Тетахилинге</a>
@@ -518,6 +485,7 @@
     </div>
 </section>
 
+<!-- Остальные секции остаются без изменений -->
 <!-- Секция "Об авторе" -->
 <section id="about" class="section">
     <div class="container">
@@ -693,23 +661,7 @@
 </footer>
 
 <script>
-    const burgerMenu = document.querySelector('.burger-menu');
-    const navLinks = document.querySelector('.nav-links');
-    
-    burgerMenu.addEventListener('click', function() {
-        this.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-    
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                burgerMenu.classList.remove('active');
-                navLinks.classList.remove('active');
-            }
-        });
-    });
-    
+    // Плавный скролл
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
