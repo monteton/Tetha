@@ -37,7 +37,47 @@
         }
         return gk_fileData[filename] || "";
         }
-        </script><!DOCTYPE html>
+        </script><script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+</script>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -230,6 +270,7 @@
             padding: 20px;
             position: relative;
             z-index: 2;
+            text-align: left;
         }
         .hero-text p, .hero-text ul li {
             font-size: 1.2rem;
@@ -240,66 +281,38 @@
             font-weight: 700;
             margin-bottom: 15px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            transform: rotate(-2deg);
         }
         .hero-text p:nth-child(2) {
             background: rgba(255, 255, 255, 0.8);
             padding: 10px;
             border-radius: 8px;
             margin: 15px 0;
-            transform: translateX(10px);
-        }
-        .hero-text p:nth-child(3) {
-            transform: translateX(-10px);
         }
         .hero-text ul {
             margin: 20px 0;
-            transform: rotate(2deg);
         }
         .hero-text p:last-of-type {
             background: rgba(255, 255, 255, 0.8);
             padding: 10px;
             border-radius: 8px;
-            transform: translateX(10px);
         }
         .hero-image {
-            flex: 0 0 60%;
-            max-width: 720px;
+            flex: 1;
+            max-width: 400px;
             position: relative;
             z-index: 1;
-            height: 500px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .photo-collage {
-            position: relative;
+        .hero-image img {
             width: 100%;
-            height: 100%;
-        }
-        .collage-image {
-            position: absolute;
-            object-fit: cover;
+            max-width: 300px;
+            aspect-ratio: 9/16;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .collage-image:nth-child(1) {
-            width: 60%;
-            height: 70%;
-            top: 0;
-            left: 0;
-            transform: rotate(-5deg);
-        }
-        .collage-image:nth-child(2) {
-            width: 50%;
-            height: 60%;
-            top: 20%;
-            right: 0;
-            transform: rotate(5deg);
-        }
-        .collage-image:nth-child(3) {
-            width: 40%;
-            height: 50%;
-            bottom: 0;
-            left: 30%;
-            transform: rotate(3deg);
+            object-fit: cover;
         }
         .highlight-frame {
             display: inline-block;
@@ -469,6 +482,9 @@
             color: #A2C1E0;
             text-decoration: underline;
         }
+        .footer-social-links {
+            display: none;
+        }
         @media (min-width: 768px) {
             .nav-container {
                 flex-direction: row;
@@ -490,6 +506,9 @@
                 flex-direction: column;
                 text-align: center;
             }
+            .hero-text {
+                text-align: center;
+            }
             .hero-title {
                 font-size: 2.2rem;
             }
@@ -498,29 +517,33 @@
             }
             .hero-image {
                 max-width: 100%;
-                height: 300px;
+                height: 400px;
                 margin-top: 20px;
             }
-            .collage-image:nth-child(1) {
-                width: 70%;
-                height: 60%;
+            .hero-image img {
+                max-width: 250px;
             }
-            .collage-image:nth-child(2) {
-                width: 60%;
-                height: 50%;
+            .social-links {
+                display: none;
             }
-            .collage-image:nth-child(3) {
-                width: 50%;
-                height: 40%;
+            .footer-social-links {
+                display: flex;
+                justify-content: center;
+                gap: 25px;
+                margin-top: 15px;
+            }
+            .footer-social-links .social-link {
+                font-size: 1rem;
+                color: #A2C1E0;
+            }
+            .footer-social-links .social-link:hover {
+                color: #7DA3D1;
             }
             .section-title, .event-heading {
                 font-size: 1.8rem;
             }
             .banner h2 {
                 font-size: 1.4rem;
-            }
-            .social-links {
-                gap: 15px;
             }
             .nav-links {
                 gap: 10px;
@@ -584,11 +607,7 @@
                     <p>Моя работа строится на глубокой работе с подсознанием, уважении к внутренним процессам и понимании психосоматических связей. Я помогаю людям выявлять и трансформировать ограничивающие убеждения, развивать интуицию и возвращаться к состоянию целостности и внутренней гармонии.</p>
                 </div>
                 <div class="hero-image">
-                    <div class="photo-collage">
-                        <img src="images/author1.png" alt="Алия Свиридова 1" class="collage-image" loading="lazy">
-                        <img src="images/author2.png" alt="Алия Свиридова 2" class="collage-image" loading="lazy">
-                        <img src="images/author3.png" alt="Алия Свиридова 3" class="collage-image" loading="lazy">
-                    </div>
+                    <img src="images/author1.png" alt="Алия Свиридова" loading="lazy">
                 </div>
             </div>
         </div>
@@ -763,24 +782,27 @@
                 <div style="text-align: center;">
                     <p>Астана, Казахстан</p>
                     <p>Тел.: <a href="https://wa.me/77776896877" target="_blank">+7 777 689 68 77</a></p>
-                    <p>Email: <a href="mailto:aliya@sviridovaaliya.ru">aliya@sviridovaaliya.ru</a></p>
+                    <p>Email: <a href="/cdn-cgi/l/email-protection#482924213129083b3e213a212c273e292924213129663a3d"><span class="__cf_email__" data-cfemail="d2f3fefbebf3d2e1e4fbe0fbf6fde4f3f3fefbebf3bce0e7">[email&#160;protected]</span></a></p>
                     <p>© 2025 Алия Свиридова. Все права защищены.</p>
                     <p>ИП Свиридова Алия Катифовна<br>ИИН: 830523450138</p>
                     <div class="footer-links">
                         <a href="privacy.html">Политика конфиденциальности</a>
                         <a href="offer.html">Договор оферты</a>
-                        <a href="https://t.me/aliyakati" rel="noopener noreferrer">
-                            <i class="fab fa-telegram" aria-hidden="true"></i> Telegram
-                        </a>
-                        <a href="https://www.instagram.com/aliyakatifovna/#" rel="noopener noreferrer">
-                            <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
-                        </a>
+                        <div class="footer-social-links">
+                            <a href="https://t.me/aliyakati" class="social-link" rel="noopener noreferrer">
+                                <i class="fab fa-telegram social-icon" aria-hidden="true"></i> Telegram
+                            </a>
+                            <a href="https://www.instagram.com/aliyakatifovna/#" class="social-link" rel="noopener noreferrer">
+                                <i class="fab fa-instagram social-icon" aria-hidden="true"></i> Instagram
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
 
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -868,12 +890,11 @@
             delay: 0.5,
             ease: 'power2.out'
         });
-        gsap.from('.collage-image', {
+        gsap.from('.hero-image img', {
             opacity: 0,
             y: 50,
             duration: 1,
             delay: 0.7,
-            stagger: 0.2,
             ease: 'power2.out'
         });
         gsap.from('.event-heading', {
