@@ -86,10 +86,10 @@
     <meta name="twitter:image" content="images/preview.jpg">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <title>Официальный сайт Алии Свиридовой | ТетаХилинг</title>
-    <!-- Google Fonts: Manrope и Fraunces -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Fraunces:wght@400;700&display=swap" as="style" onload="this.rel='stylesheet'">
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" as="style" onload="this.rel='stylesheet'">
     <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Fraunces:wght@400;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap">
     </noscript>
     <!-- Font Awesome -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.rel='stylesheet'">
@@ -103,19 +103,20 @@
             padding: 0;
         }
         body {
-            font-family: 'Manrope', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             color: #4A5B6D;
-            background: linear-gradient(180deg, #E6F0FA 0%, #D1E3F6 100%);
+            background: #F5F5F5;
             line-height: 1.6;
             overflow-x: hidden;
         }
         h1, h2, h3, h4 {
-            font-family: 'Fraunces', serif;
-            color: #5A789A;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #4A5B6D;
         }
         .section {
             padding: 40px 20px;
-            background: linear-gradient(180deg, #F0F7FF 0%, #E6F0FA 100%);
+            background: #F5F5F5;
         }
         .container {
             width: 100%;
@@ -145,7 +146,7 @@
             transform: translateX(-50%);
             width: 50px;
             height: 3px;
-            background: #7DA3D1;
+            background: #6B46C1;
             border-radius: 2px;
         }
         .hero-section {
@@ -173,37 +174,79 @@
         .highlight-frame {
             display: inline-block;
             background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #A2C1E0;
+            border: 2px solid #6B46C1;
             border-radius: 8px;
             padding: 8px 12px;
             margin-bottom: 10px;
         }
         .main-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 10px 0;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            bottom: 20px;
+            right: 20px;
             z-index: 1000;
         }
-        .nav-links {
+        .burger-menu {
             display: flex;
-            justify-content: space-around;
-            gap: 10px;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .burger-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .burger-icon span {
+            width: 100%;
+            height: 3px;
+            background: #4A5B6D;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .burger-menu.active .burger-icon span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        .burger-menu.active .burger-icon span:nth-child(2) {
+            opacity: 0;
+        }
+        .burger-menu.active .burger-icon span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        .nav-links {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            z-index: 999;
+        }
+        .nav-links.active {
+            display: flex;
         }
         .nav-link {
-            color: #A2C1E0;
+            color: #4A5B6D;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
             font-weight: 500;
-            padding: 8px;
+            padding: 10px;
             transition: color 0.3s ease;
         }
         .nav-link:hover {
-            color: #7DA3D1;
+            color: #6B46C1;
         }
         .cards-container {
             display: flex;
@@ -239,7 +282,7 @@
             display: none;
             margin-top: 10px;
             padding-top: 10px;
-            border-top: 1px solid #D1E3F6;
+            border-top: 1px solid #E5E5E5;
         }
         .theta-details ul {
             list-style-type: none;
@@ -254,15 +297,16 @@
             content: '•';
             position: absolute;
             left: 0;
-            color: #A2C1E0;
+            color: #6B46C1;
         }
         .btn {
             display: inline-block;
-            font-family: 'Fraunces', serif;
-            background: linear-gradient(90deg, #A2C1E0 0%, #D1E3F6 100%);
-            color: #4A5B6D;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            background: linear-gradient(90deg, #6B46C1 0%, #9F7AEA 100%);
+            color: #FFFFFF;
             border: none;
-            padding: 12px 20px;
+            padding: 12px 30px;
             border-radius: 8px;
             font-size: 0.9rem;
             cursor: pointer;
@@ -270,9 +314,23 @@
             transition: all 0.3s ease;
             text-decoration: none;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        .btn:hover::before {
+            left: 100%;
         }
         .btn:hover {
-            background: linear-gradient(90deg, #7DA3D1 0%, #A2C1E0 100%);
             transform: scale(1.05);
         }
         .button-group {
@@ -303,7 +361,7 @@
         footer {
             padding: 40px 20px;
             text-align: center;
-            background: linear-gradient(180deg, #D9E6F5 0%, #E6F0FA 100%);
+            background: #F5F5F5;
         }
         .footer-links {
             display: flex;
@@ -318,7 +376,7 @@
             transition: color 0.3s ease;
         }
         .footer-links a:hover {
-            color: #A2C1E0;
+            color: #6B46C1;
         }
         .footer-social-links {
             display: flex;
@@ -327,7 +385,7 @@
             margin-top: 15px;
         }
         .social-link {
-            color: #A2C1E0;
+            color: #4A5B6D;
             text-decoration: none;
             font-size: 0.9rem;
             display: flex;
@@ -336,7 +394,7 @@
             transition: color 0.3s ease;
         }
         .social-link:hover {
-            color: #7DA3D1;
+            color: #6B46C1;
         }
         .social-icon {
             font-size: 1.2rem;
@@ -375,15 +433,39 @@
             }
             .main-nav {
                 position: static;
-                padding: 15px 0;
+                bottom: auto;
+                right: auto;
+                background: none;
+                backdrop-filter: none;
                 box-shadow: none;
+                padding: 15px 0;
+            }
+            .burger-menu {
+                display: none;
             }
             .nav-links {
+                display: flex !important;
+                position: static;
+                width: auto;
+                height: auto;
+                background: none;
+                backdrop-filter: none;
+                flex-direction: row;
                 justify-content: center;
                 gap: 20px;
             }
             .nav-link {
                 font-size: 1rem;
+                color: #4A5B6D;
+            }
+            .nav-link:hover {
+                color: #6B46C1;
+            }
+            .main-nav .social-links {
+                display: flex;
+                justify-content: flex-start;
+                gap: 25px;
+                margin-bottom: 10px;
             }
             .cards-container {
                 display: grid;
@@ -409,11 +491,6 @@
             }
             .footer-social-links {
                 display: none;
-            }
-            .main-nav .social-links {
-                display: flex;
-                justify-content: flex-start;
-                gap: 25px;
             }
         }
         @media (min-width: 992px) {
@@ -585,7 +662,7 @@
                         <li style="margin-bottom: 8px;">Укрепление здоровья и энергетического баланса</li>
                         <li style="margin-bottom: 8px;">Стоимость участия на обычном тарифе <strong>бесплатное</strong></li>
                     </ul>
-                    <h2 style="font-size: 1.5rem; margin-bottom: 15px; color: #5A789A;">
+                    <h2 style="font-size: 1.5rem; margin-bottom: 15px; color: #4A5B6D;">
                         💎 Тариф VIP — для тех, кто хочет PREDICTIONS:
                     </h2>
                     <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
@@ -594,7 +671,7 @@
                         <li style="margin-bottom: 10px;">✅ Дополнительный вебинар 27 апреля</li>
                         <li style="margin-bottom: 10px;">✅ Доступ к дополнительным материалам</li>
                     </ul>
-                    <p style="font-weight: bold; font-size: 1rem; color: #5A789A; margin-top: 15px;">
+                    <p style="font-weight: bold; font-size: 1rem; color: #4A5B6D; margin-top: 15px;">
                         Стоимость: 5300 тг
                     </p>
                 </div>
@@ -618,7 +695,7 @@
                 <div style="text-align: center;">
                     <p>Астана, Казахстан</p>
                     <p>Тел.: <a href="https://wa.me/77776896877" target="_blank">+7 777 689 68 77</a></p>
-                    <p>Email: <a href="/cdn-cgi/l/email-protection#482924213129083b3e213a212c273e292924213129663a3d"><span class="__cf_email__" data-cfemail="d2f3fefbebf3d2e1e4fbe0fbf6fde4f3f3fefbebf3bce0e7">[email&nbsp;protected]</span></a></p>
+                    <p>Email: <a href="/cdn-cgi/l/email-protection#482924213129083b3e213a212c273e292924213129663a3d"><span class="__cf_email__" data-cfemail="d2f3fefbebf3d2e1e4fbe0fbf6fde4f3f3fefbebf3bce0e7">[email protected]</span></a></p>
                     <p>© 2025 Алия Свиридова. Все права защищены.</p>
                     <p>ИП Свиридова Алия Катифовна<br>ИИН: 830523450138</p>
                     <div class="footer-links">
@@ -640,6 +717,14 @@
 
     <!-- Navigation -->
     <nav class="main-nav" aria-label="Основное меню">
+        <div class="burger-menu">
+            <div class="burger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span>Меню</span>
+        </div>
         <div class="container">
             <div class="nav-links">
                 <a href="#about" class="nav-link">Обо мне</a>
@@ -653,6 +738,14 @@
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
+        // Burger Menu Toggle
+        const burgerMenu = document.querySelector('.burger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        burgerMenu.addEventListener('click', () => {
+            burgerMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -665,6 +758,9 @@
                         top: targetElement.offsetTop,
                         behavior: 'smooth'
                     });
+                    // Закрыть меню после клика
+                    burgerMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
                 }
             });
         });
@@ -744,16 +840,20 @@
                 start: 'top 80%'
             }
         });
-        gsap.from('.btn', {
-            scale: 0.9,
-            opacity: 0,
-            duration: 0.5,
-            stagger: 0.1,
-            ease: 'power2.out',
-            scrollTrigger: {
-                trigger: '.button-group',
-                start: 'top 80%'
-            }
+        // Анимация кнопок
+        document.querySelectorAll('.button-group').forEach(group => {
+            gsap.from(group.querySelectorAll('.btn'), {
+                scale: 0.9,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: group,
+                    start: 'top 90%',
+                    toggleActions: 'play none none none'
+                }
+            });
         });
         // Параллакс для фото
         gsap.to('.hero-image img', {
