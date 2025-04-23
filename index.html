@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Официальный сайт Алии Свиридовой</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      background: #fdfdfd;
       height: 100%;
       overflow: hidden;
+      background-color: #0a0a0a;
+      color: #ffffff;
       font-family: 'Segoe UI', sans-serif;
-      color: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      position: relative;
+      z-index: 1;
     }
 
     h1 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
+      font-size: 2rem;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 0 8px #00f0ff, 0 0 20px #00f0ff;
+      z-index: 2;
     }
 
-    canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
+    .dots {
+      font-size: 1.2rem;
+      margin-top: 0.5em;
+      text-shadow: 0 0 8px #00f0ff;
+      z-index: 2;
     }
 
     .dots::after {
@@ -38,10 +42,18 @@
     }
 
     @keyframes dots {
-      0% { content: ''; }
-      33% { content: '.'; }
-      66% { content: '..'; }
+      0%   { content: ''; }
+      33%  { content: '.'; }
+      66%  { content: '..'; }
       100% { content: '...'; }
+    }
+
+    canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
     }
   </style>
 </head>
@@ -51,7 +63,7 @@
   <canvas id="particles"></canvas>
 
   <script>
-    // Редирект на мобильную/десктопную версию
+    // Редирект через 1.5 сек
     window.onload = function () {
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       setTimeout(() => {
@@ -59,51 +71,51 @@
       }, 1500);
     };
 
-    // Частицы энергии (canvas)
+    // Неоновые частицы
     const canvas = document.getElementById('particles');
     const ctx = canvas.getContext('2d');
-    let particles = [];
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
 
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
 
-    function createParticle() {
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+    const particles = [];
+
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
         radius: Math.random() * 2 + 1,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5
-      };
+        dx: (Math.random() - 0.5) * 0.8,
+        dy: (Math.random() - 0.5) * 0.8,
+        color: `hsl(${Math.random() * 360}, 100%, 70%)`
+      });
     }
 
-    for (let i = 0; i < 120; i++) {
-      particles.push(createParticle());
-    }
-
-    function drawParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
       particles.forEach(p => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(100, 100, 255, 0.3)';
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = p.color;
+        ctx.fillStyle = p.color;
         ctx.fill();
 
         p.x += p.dx;
         p.y += p.dy;
 
-        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        if (p.x < 0 || p.x > width) p.dx *= -1;
+        if (p.y < 0 || p.y > height) p.dy *= -1;
       });
-      requestAnimationFrame(drawParticles);
+      requestAnimationFrame(draw);
     }
 
-    drawParticles();
+    draw();
   </script>
 </body>
 </html>
