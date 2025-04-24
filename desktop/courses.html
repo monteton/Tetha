@@ -66,38 +66,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <!-- Particles.js -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-            return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-                try {
-                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                    var firstSheetName = workbook.SheetNames[0];
-                    var worksheet = workbook.Sheets[firstSheetName];
-                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                    var filteredData = jsonData.filter(row => row.some(filledCell));
-                    var headerRowIndex = filteredData.findIndex((row, index) =>
-                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                    );
-                    if (headerRowIndex === -1 || headerRowIndex > 25) {
-                        headerRowIndex = 0;
-                    }
-                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
-                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                    return csv;
-                } catch (e) {
-                    console.error(e);
-                    return "";
-                }
-            }
-            return gk_fileData[filename] || "";
-        }
-    </script>
     <style>
         * {
             box-sizing: border-box;
@@ -132,7 +100,7 @@
         .container {
             width: 100%;
             max-width: 1200px;
-            padding: 0 15px;
+            padding: 0 5px; /* Минимальные боковые отступы */
             margin: 0 auto;
         }
         .content-block {
@@ -263,6 +231,7 @@
             flex-direction: column;
             min-height: 450px;
             justify-content: space-between;
+            align-items: center; /* Центрируем содержимое карточки */
         }
         .card:hover {
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -280,18 +249,22 @@
             border-radius: 10px;
         }
         .card h3 {
-            font-size: 1.5rem;
+            font-size: 1.8rem; /* Увеличенный размер шрифта */
             margin-bottom: 10px;
+            text-align: center;
+            color: #4A5B6D; /* Черный цвет для заголовков курсов */
         }
         .card p {
             font-size: 1rem;
             margin-bottom: 15px;
             flex-grow: 1;
             min-height: 80px;
+            text-align: center;
         }
         .card .btn {
             margin-top: auto;
-            width: 100%;
+            width: 220px; /* Единая ширина кнопок */
+            align-self: center; /* Центрируем кнопку в карточке */
         }
         .course-details {
             display: none;
@@ -308,6 +281,7 @@
             margin-bottom: 10px;
             position: relative;
             font-size: 1rem;
+            text-align: center;
         }
         .course-details li::before {
             content: '•';
@@ -316,7 +290,9 @@
             color: #6B46C1;
         }
         .btn {
-            display: inline-block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-family: 'Montserrat', sans-serif;
             font-weight: 500;
             background: linear-gradient(90deg, #6B46C1 0%, #9F7AEA 100%);
@@ -329,9 +305,9 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             text-decoration: none;
-            text-align: center;
             position: relative;
             overflow: hidden;
+            width: 220px; /* Единая ширина для всех кнопок */
         }
         .btn::before {
             content: '';
@@ -363,17 +339,18 @@
             flex-direction: column;
             min-height: 400px;
             position: relative;
+            align-items: center; /* Центрируем содержимое карточки */
         }
         .tariff-banner {
             position: absolute;
             top: -12px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(90deg, #6B46C1 0%, #9F7AEA 100%);
+            background: linear-gradient(90deg, #FFD700, #FFEC8B, #FFD700); /* Золотой градиент для тарифов */
             color: #FFFFFF;
             padding: 6px 15px;
             border-radius: 15px;
-            font-size: 0.9rem;
+            font-size: 1.2rem; /* Увеличенный шрифт для названий тарифов */
             font-weight: 600;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 90%;
@@ -383,6 +360,7 @@
             white-space: nowrap;
             overflow-wrap: break-word;
             z-index: 1;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Тень для читаемости */
         }
         .tariff-content {
             margin-top: 30px;
@@ -390,6 +368,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            align-items: center; /* Центрируем содержимое */
         }
         .tariff-content ul {
             list-style-type: none;
@@ -419,12 +398,48 @@
         }
         .price-new {
             font-size: 1.5rem;
-            color: #6B46C1;
-            font-weight: bold;
+            color: #000000; /* Черный цвет для цен */
+            font-weight: 400; /* Тонкий шрифт */
+            margin-bottom: 10px;
+        }
+        .price-installment {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #4A5B6D;
             margin-bottom: 20px;
         }
-        .tariff-content .btn {
-            margin-top: auto;
+        .tariff-content .button-group {
+            margin-top: 50px; /* Увеличенный отступ для кнопок */
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center; /* Центрируем кнопки */
+            justify-content: center; /* Дополнительное центрирование */
+        }
+        .bonus-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .bonus-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .bonus-section ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        .bonus-section li {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .whatsapp-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    text-align: center;
         }
         footer {
             padding: 30px 0;
@@ -480,6 +495,12 @@
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 15px;
+            }
+            .card h3 {
+                font-size: 1.6rem; /* Уменьшенный шрифт для мобильных */
+            }
+            .tariff-banner {
+                font-size: 1rem; /* Уменьшенный шрифт для мобильных */
             }
         }
     </style>
@@ -592,7 +613,7 @@
                                 <li>Глубинное - что на самом деле является нашей мотивацией.</li>
                                 <li>Интерпретация посланий и как получать ясные послания интуитивно.</li>
                                 <li>Как перезагрузить ум и жить без застреваний в прошлом.</li>
-                                <li>Как провести самораскопку быстро и глубоко.</li>
+                                <li>Как провести самораскопкуBook быстро и глубоко.</li>
                                 <li>Алгоритм быстрой и эффективной раскопки.</li>
                             </ul>
                         </div>
@@ -618,16 +639,18 @@
                         <img src="images/motivation.jpg" alt="Мотивационное изображение" loading="lazy">
                     </div>
                 </div>
-                <p style="text-align: center; font-weight: bold; margin-top: 20px;">По окончании 4-х курсов выдается международный сертификат Института Тетахилинг.</p>
+                <p style="text-align: center; font-weight: bold; margin-top: 20px;">По окончании курсов выдается международный сертификат Института Тетахилинг.</p>
             </div>
         </div>
     </section>
-<p style="text-align: center; margin: 20px 0; font-size: 20px;">Стоимость каждого курса по отдельности: 200 000 тг<br>Стоимость Распаковки гениальности: 350 000 тг</p>
+    <p style="text-align: center; margin: 20px 0; font-size: 20px;">Стоимость каждого курса по отдельности: 200 000 тг<br>Стоимость Распаковки гениальности: 350 000 тг</p>
+
     <!-- Tariffs Section -->
     <section id="tariffs" class="section">
         <div class="container">
             <div class="content-block">
                 <h2 class="section-title">Тарифы</h2>
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 20px;">Специальные условия для участников практикума</p>
                 <div class="cards-container tariff-cards">
                     <div class="tariff-card">
                         <div class="tariff-banner">Тетапрактик</div>
@@ -635,13 +658,21 @@
                             <ul>
                                 <li>Базовый курс</li>
                                 <li>Продвинутый курс</li>
+                                <li>Предобучение (как только поступает оплата)</li>
+                                <li>Общий чат с Алией и участниками</li>
+                                <li>Книги и раздаточные материалы для прохождения курса</li>
                             </ul>
                             <div class="price-old">404 000 тг (64.808 рублей)</div>
                             <div class="price-new">
-                              <p>350 000 тг&nbsp;</p>
-                              <p>(55.808 рублей)</p>
+                                <p>350 000 тг</p>
+                                <p>(55.808 рублей)</p>
                             </div>
-                            <a href="https://robokassa.ru/payment" class="btn" aria-label="Оплатить тариф Тетапрактик">Оплатить</a>
+                            <div class="price-installment">возможность рассрочки на 12 мес</div>
+                            <div class="button-group">
+                                <a href="https://robokassa.ru/payment" class="btn" aria-label="Оплатить тариф Старт полностью" rel="noopener noreferrer">Оплатить полностью</a>
+                                <a href="https://wa.me/77776896877" class="btn" aria-label="Оформить рассрочку на тариф Старт" rel="noopener noreferrer">Оформить рассрочку</a>
+                                <a href="https://robokassa.ru/payment" class="btn" aria-label="Внести предоплату за тариф Старт" rel="noopener noreferrer">Внести предоплату 44000 тг (7000р)</a>
+                            </div>
                         </div>
                     </div>
                     <div class="tariff-card">
@@ -652,13 +683,22 @@
                                 <li>Продвинутый курс</li>
                                 <li>Глубинные раскопки</li>
                                 <li>Гармоничные отношения</li>
+                                <li>Предобучение (как только поступает оплата)</li>
+                                <li>Общий чат с Алией и участниками</li>
+                                <li>Книги и раздаточные материалы для прохождения курса</li>
+                                <li>Бонусный зум-разбор для участников тарифа</li>
                             </ul>
                             <div class="price-old">620 000 тг (98.900 рублей)</div>
                             <div class="price-new">
-                              <p>530 000 тг&nbsp;</p>
-                              <p>(82.808 рублей)</p>
+                                <p>530 000 тг</p>
+                                <p>(82.808 рублей)</p>
                             </div>
-                            <a href="https://robokassa.ru/payment" class="btn" aria-label="Оплатить тариф Профессионал">Оплатить</a>
+                            <div class="price-installment">возможность рассрочки на 12 мес</div>
+                            <div class="button-group">
+                                <a href="https://robokassa.ru/payment" class="btn" aria-label="Оплатить тариф Мастер полностью" rel="noopener noreferrer">Оплатить полностью</a>
+                                <a href="https://wa.me/77776896877" class="btn" aria-label="Оформить рассрочку на тариф Мастер" rel="noopener noreferrer">Оформить рассрочку</a>
+                                <a href="https://robokassa.ru/payment" class="btn" aria-label="Внести предоплату за тариф Мастер" rel="noopener noreferrer">Внести предоплату 44000 тг (7000р)</a>
+                            </div>
                         </div>
                     </div>
                     <div class="tariff-card">
@@ -670,20 +710,36 @@
                                 <li>Глубинные раскопки</li>
                                 <li>Гармоничные отношения</li>
                                 <li>Распаковка гениальности</li>
+                                <li>Предобучение (как только поступает оплата)</li>
+                                <li>Общий чат с Алией и участниками</li>
+                                <li>Книги и раздаточные материалы для прохождения курса</li>
+                                <li>Бонусный зум-разбор для участников тарифа</li>
                             </ul>
                             <div class="price-old">1 000 000 тг (159.900 рублей)</div>
                             <div class="price-new">
-                              <p>808 000 тг&nbsp;</p>
-                              <p>(127.808 рублей)</p>
+                                <p>808 000 тг</p>
+                                <p>(127.808 рублей)</p>
                             </div>
-                            <a href="https://robokassa.ru/payment" class="btn" aria-label="Оплатить тариф VIP">Оплатить</a>
+                            <div class="price-installment">возможность рассрочки на 12 мес</div>
+                            <div class="button-group">
+                                <a href="https://robokassa.ru/payment" class="btn" aria-label="Оплатить тариф Премиум полностью" rel="noopener noreferrer">Оплатить полностью</a>
+                                <a href="https://wa.me/77776896877" class="btn" aria-label="Оформить рассрочку на тариф Премиум" rel="noopener noreferrer">Оформить рассрочку</a>
+                                <a href="https://robokassa.ru/payment" class="btn" aria-label="Внести предоплату за тариф Премиум" rel="noopener noreferrer">Внести предоплату 44000 тг (7000р)</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <p style="text-align: center; font-style: italic;">Есть возможность рассрочки на 12 месяцев</p>
-                <div style="text-align: center; margin-top: 20px;">
-                    <a href="https://wa.me/77776896877" class="btn" aria-label="Написать в WhatsApp">Написать в WhatsApp</a>
+                <div class="bonus-section">
+                    <h3>Бонусы при оплате в течение 24 часов:</h3>
+                    <ul>
+                        <li>Сканирование от Алии Свиридовой</li>
+                        <li>Аудио-бокс из 8 медитаций</li>
+                        <li>Для тарифа Премиум: Обучение продажам распаковки гениальности и встреча с экспертом по личному бренду</li>
+                    </ul>
+                </div>
+                <p style="text-align: center; font-size: 1.2rem; margin: 20px 0;">Задать любой вопрос</p>
+                <div class="whatsapp-container">
+                    <a href="https://wa.me/77776896877" class="btn" aria-label="Написать в WhatsApp" rel="noopener noreferrer">Написать в WhatsApp</a>
                 </div>
             </div>
         </div>
@@ -696,9 +752,8 @@
                 <h2 class="section-title">Контакты</h2>
                 <div style="text-align: center;">
                     <p>Астана, Казахстан</p>
-                    <p>Тел.: <a href="https://wa.me/77776896877" target="_blank">+7 777 689 68 77</a></p>
+                    <p>Тел.: <a href="https://wa.me/77776896877" target="_blank" rel="noopener noreferrer">+7 777 689 68 77</a></p>
                     <p>Email: <a href="mailto:aliya@sviridovaaliya.ru">aliya@sviridovaaliya.ru</a></p>
-
                     <p>© 2025 Алия Свиридова. Все права защищены.</p>
                     <p>ИП Свиридова Алия Катифовна<br>ИИН: 830523450138</p>
                     <div class="footer-links">
@@ -717,6 +772,38 @@
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+            return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+                try {
+                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                    var firstSheetName = workbook.SheetNames[0];
+                    var worksheet = workbook.Sheets[firstSheetName];
+                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                    var filteredData = jsonData.filter(row => row.some(filledCell));
+                    var headerRowIndex = filteredData.findIndex((row, index) =>
+                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                    );
+                    if (headerRowIndex === -1 || headerRowIndex > 25) {
+                        headerRowIndex = 0;
+                    }
+                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                    return csv;
+                } catch (e) {
+                    console.error(e);
+                    return "";
+                }
+            }
+            return gk_fileData[filename] || "";
+        }
+    </script>
     <script>
         // Particles.js Initialization
         particlesJS('particles-js', {
@@ -803,13 +890,36 @@
             });
         });
 
-        // Animations
+        // Animations (без анимации для кнопок)
         gsap.from('.hero-title', {
             y: -50,
             opacity: 0,
             duration: 1,
             ease: 'power2.out'
         });
+        gsap.from('.card', {
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.cards-container',
+                start: 'top 80%'
+            }
+        });
+        gsap.from('.tariff-card', {
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '.tariff-cards',
+                start: 'top 80%'
+            }
+        });
     </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'935508f93aa9bd5b',t:'MTc0NTQ5MTc3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
