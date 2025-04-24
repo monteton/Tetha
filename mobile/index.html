@@ -37,39 +37,7 @@
         }
         return gk_fileData[filename] || "";
         }
-        </script><script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-</script>
-<!DOCTYPE html>
+        </script><!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -98,6 +66,39 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <!-- Particles.js -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script type="text/javascript">
+        // Скрипт для обработки XLSX-файлов
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+            return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+                try {
+                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                    var firstSheetName = workbook.SheetNames[0];
+                    var worksheet = workbook.Sheets[firstSheetName];
+                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                    var filteredData = jsonData.filter(row => row.some(filledCell));
+                    var headerRowIndex = filteredData.findIndex((row, index) =>
+                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                    );
+                    if (headerRowIndex === -1 || headerRowIndex > 25) {
+                        headerRowIndex = 0;
+                    }
+                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                    return csv;
+                } catch (e) {
+                    console.error(e);
+                    return "";
+                }
+            }
+            return gk_fileData[filename] || "";
+        }
+    </script>
     <style>
         * {
             box-sizing: border-box;
@@ -126,14 +127,14 @@
             color: #4A5B6D;
         }
         .section {
-            padding: 40px 20px;
+            padding: 40px 20px; /* Сохраняем отступы сверху и снизу */
             background: #F5F5F5;
         }
         .container {
             width: 100%;
-            max-width: 600px;
+            max-width: 100%; /* Максимальная ширина для заполнения экрана */
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 5px; /* Минимальные отступы по бокам */
         }
         .content-block {
             background: rgba(255, 255, 255, 0.8);
@@ -144,11 +145,10 @@
             margin-bottom: 20px;
         }
         .section-title {
-    font-size: 1.8rem;
-    text-align: center;
-    margin-bottom: 20px;
-    position: relative;
-    top: auto;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
         }
         .section-title::after {
             content: '';
@@ -172,6 +172,7 @@
         .hero-text p, .hero-text ul li {
             font-size: 1rem;
             margin-bottom: 10px;
+            text-align: center; /* Центрируем текст абзацев */
         }
         .hero-image img {
             width: 100%;
@@ -288,9 +289,11 @@
         .card h3 {
             font-size: 1.3rem;
             margin-bottom: 8px;
+            text-align: center; /* Центрируем заголовки карточек */
         }
         .card p {
             font-size: 0.9rem;
+            text-align: center; /* Центрируем текст карточек */
         }
         .theta-details {
             display: none;
@@ -306,6 +309,7 @@
             padding-left: 20px;
             margin-bottom: 8px;
             position: relative;
+            text-align: center; /* Центрируем текст в деталях */
         }
         .theta-details li::before {
             content: '•';
@@ -314,7 +318,9 @@
             color: #6B46C1;
         }
         .btn {
-            display: inline-block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-family: 'Montserrat', sans-serif;
             font-weight: 500;
             background: linear-gradient(90deg, #6B46C1 0%, #9F7AEA 100%);
@@ -327,9 +333,9 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             text-decoration: none;
-            text-align: center;
             position: relative;
             overflow: hidden;
+            width: 220px; /* Единая ширина для всех кнопок */
         }
         .btn::before {
             content: '';
@@ -352,8 +358,12 @@
     flex-direction: column;
     gap: 15px;
     margin-top: 30px;
-    align-items: center;
-    bottom: 0px;
+    align-items: center; /* Центрируем кнопки */
+    text-align: center;
+        }
+        #who-needs .button-group {
+    margin-top: 50px; /* Увеличенный отступ для кнопок в #who-needs */
+    text-align: center;
         }
         .event-section {
             padding: 30px 20px;
@@ -431,15 +441,15 @@
                     <img src="images/author1.png" alt="Алия Свиридова" loading="lazy">
                 </div>
                 <div class="hero-text">
-                    <p>Преподаватель методики ТетаХилинг с практическим опытом более <strong>12 лет</strong>. Работаю как инструктор по подсознательной трансформации и развитию мышления.</p>
-                    <p>У меня медицинское образование и более <strong>14 лет</strong> профессионального опыта в фармацевтической индустрии.</p>
-                    <p><strong>За это время я провела:</strong></p>
+                    <p>Преподаватель методики ТетаХилинг с практическим опытом более <strong>12 лет</strong>. Инструктор работе с подсознанием и мышлением.</p>
+                    <p>За плечами медицинское образование и более <strong>14 лет</strong> профессионального опыта в фармацевтической индустрии.</p>
+                    <p><strong>За это время провела:</strong></p>
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li class="highlight-frame">✓ Более <strong>3000</strong> индивидуальных тета-сессий</li>
-                        <li class="highlight-frame">✓ <strong>25</strong> открытых мастер-классов</li>
+                        <li class="highlight-frame">✓ <strong>25</strong> мастер-классов</li>
                         <li class="highlight-frame">✓ <strong>5</strong> потоков обучения профессии Тетапрактик</li>
                     </ul>
-                    <p>Моя работа строится на глубокой работе с подсознанием, уважении к внутренним процессам и понимании психосоматических связей. Я помогаю людям выявлять и трансформировать ограничивающие убеждения, развивать интуицию и возвращаться к состоянию целостности и внутренней гармонии.</p>
+                    <p>Работа строится на глубокой работе с подсознанием, уважении к внутренним процессам и понимании психосоматических связей. Помогаю людям выявлять и трансформировать ограничивающие убеждения, развивать интуицию и возвращаться к состоянию целостности и внутренней гармонии.</p>
                 </div>
             </div>
         </div>
@@ -459,19 +469,17 @@
     <section id="theta" class="section">
         <div class="container">
             <div class="content-block">
-                <h2 class="section-title">Что такое ТетаХилинг</h2>
+                <h2 class="section-title">О ТетаХилинге</h2>
                 <div class="cards-container">
                     <div class="card">
                         <img src="images/theta1.jpg" alt="Основы метода Тетахилинга" loading="lazy">
                         <h3>Основы метода</h3>
-                        <p><strong>Тетахилинг</strong> - духовно-энергетическая практика, работающая с подсознанием через тета-состояние мозга (4-7 Гц). Метод создан Вианной Стайбл в 1995 году после её чудесного исцеления.</p>
-                        <button class="btn toggle-details">Читать далее</button>
+                        <p>Тетахилинг — это мощная техника, которая позволяет работать с подсознанием на глубинном уровне. Она основана на использовании тета-волн мозга, которые активируются в состоянии глубокой медитации и релаксации.</p>
+                        <button class="btn toggle-details">Подробнее</button>
                         <div class="theta-details">
                             <ul>
                                 <li>Метод основан на способности человека входить в тета-состояние, где мозг работает на частоте 4-7 Гц, открывая доступ к подсознанию.</li>
-                                <li>Вианна Стайбл разработала ТетаХилинг после исцеления от рака, обнаружив, что тета-состояние позволяет работать с убеждениями и энергией.</li>
-                                <li>Практика сочетает медитацию, интуитивные техники и работу с Божественным источником для трансформации жизни.</li>
-                                <li>ТетаХилинг признан во всем мире и преподаётся в более чем 180 стран.</li>
+                                <li>ТетаХилинг признан во всем мире, преподаётся и практикуется в более чем 180 стран.</li>
                             </ul>
                         </div>
                     </div>
@@ -479,28 +487,27 @@
                         <img src="images/theta2.jpg" alt="Как работает Тетахилинг" loading="lazy">
                         <h3>Как это работает</h3>
                         <p>В тета-состоянии мы можем напрямую общаться с Божественным источником, находить и трансформировать глубинные убеждения, страхи и травмы, мешающие жить полноценно и счастливо.</p>
-                        <button class="btn toggle-details">Читать далее</button>
+                        <button class="btn toggle-details">Подробнее</button>
                         <div class="theta-details">
                             <ul>
-                                <li>Тета-состояние достигается через медитацию, позволяя практикующему соединиться с энергией Вселенной.</li>
+                                <li>Тета-состояние достигается через медитацию, позволяя соединиться с энергией Вселенной.</li>
                                 <li>С помощью техник раскопок (диггинга) выявляются корневые убеждения, которые формируют нежелательные сценарии в жизни.</li>
-                                <li>Практик заменяет ограничивающие убеждения на позитивные, работая с подсознанием клиента.</li>
-                                <li>Метод позволяет исцелять эмоциональные и физические проблемы, улучшать отношения и достигать целей.</li>
+                                <li>Ограничивающие убеждения заменяются на позитивные, работая с подсознанием.</li>
                             </ul>
                         </div>
                     </div>
                     <div class="card">
-                        <img src="images/theta3.jpg" alt="Преимущества Тетахилинга" loading="lazy">
-                        <h3>Преимущества</h3>
-                        <p>Исцеление тела и души, изменение ограничивающих программ, улучшение отношений и финансов, раскрытие потенциала. Это путь к внутренней свободе, балансу и высокой вибрации жизни.</p>
-                        <button class="btn toggle-details">Читать далее</button>
+                        <img src="images/theta3.jpg" alt="Результат Тетахилинга" loading="lazy">
+                        <h3>Результат</h3>
+                        <p>Исцеление тела и души, изменение ограничивающих программ, улучшение отношений и финансов, раскрытие потенциала. Это путь к внутренней свободе, балансу и гармонии во всех сферах жизни.</p>
+                        <button class="btn toggle-details">Подробнее</button>
                         <div class="theta-details">
                             <ul>
                                 <li>Физическое исцеление: устранение психосоматических причин заболеваний.</li>
                                 <li>Эмоциональная свобода: освобождение от страхов, обид и чувства вины.</li>
                                 <li>Финансовое изобилие: трансформация блоков, связанных с деньгами и успехом.</li>
                                 <li>Улучшение отношений: гармонизация связей с партнёрами, семьёй и собой.</li>
-                                <li>Раскрытие интуиции: развитие способности слышать внутренний голос и принимать верные решения.</li>
+                                <li>Раскрытие интуиции и развитие целительских способностей: развитие способности слышать внутренний голос и принимать верные решения.</li>
                             </ul>
                         </div>
                     </div>
@@ -520,7 +527,7 @@
     <section id="who-needs" class="section">
         <div class="container">
             <div class="content-block">
-                <h2 class="section-title">Кому это нужно!</h2>
+                <h2 class="section-title">Кому это важно</h2>
                 <div class="cards-container benefits-cards">
                     <div class="card">
                         <img src="images/benefit1.jpg" alt="Ищущие гармонию" loading="lazy">
@@ -550,11 +557,13 @@
                     <div class="card">
                         <img src="images/benefit6.jpg" alt="Помогающие другим" loading="lazy">
                         <h3>Помогающие другим</h3>
-                        <p>Вы стремитесь стать коучем или практиком, чтобы помогать людям трансформировать их жизни.</p>
+                        <p>Вы стремитесь стать профессиональным практиком, чтобы помогать людям трансформировать их жизни.</p>
                     </div>
                 </div>
                 <div class="button-group">
-                    <a href="courses.html" class="btn" style="bottom: auto; top: 20px;">Хочу научиться</a>
+                    <a href="https://wa.me/77776896877" class="btn" aria-label="Записаться на консультацию" rel="noopener noreferrer">Записаться на консультацию</a>
+                    <a href="https://wa.me/77776896877" class="btn" aria-label="Записаться на тета-сессию" rel="noopener noreferrer">Записаться на тета-сессию</a>
+                    <a href="courses.html" class="btn" aria-label="Хочу научиться">Хочу научиться</a>
                 </div>
             </div>
         </div>
@@ -578,25 +587,21 @@
                         <li style="margin-bottom: 8px;">Стоимость участия на обычном тарифе <strong>бесплатное</strong></li>
                     </ul>
                     <h2 style="font-size: 1.5rem; margin-bottom: 15px; color: #4A5B6D;">
-                      💎 Тариф VIP — для тех, кто хочет больше
-                  </h2>
+                        💎 Тариф VIP — для тех, кто хочет больше
+                    </h2>
                     <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
-                      <li style="margin-bottom: 10px;">✅ Индивидуальная поддержка</li>
+                        <li style="margin-bottom: 10px;">✅ Индивидуальная поддержка</li>
                         <li style="margin-bottom: 10px;">✅ Ответы на личные вопросы</li>
                         <li style="margin-bottom: 10px;">✅ Дополнительный вебинар 27 апреля</li>
                         <li style="margin-bottom: 10px;">✅ Доступ к дополнительным материалам</li>
                     </ul>
                     <p style="font-weight: bold; font-size: 1rem; color: #4A5B6D; margin-top: 15px;">
-                      Стоимость на тарифе VIP: 5300 тг
-                  </p>
+                        Стоимость на тарифе VIP: 5300 тг
+                    </p>
                 </div>
                 <div class="button-group">
-                    <a href="https://www.myuppy.com/11" class="btn" aria-label="Записаться на практикум" rel="noopener noreferrer">
-                        Записаться на практикум →
-                    </a>
-                    <a href="https://wa.me/77776896877" class="btn" aria-label="Оформить VIP">
-                        Оформить <strong>VIP</strong> →
-                    </a>
+                    <a href="https://www.myuppy.com/11" class="btn" aria-label="Записаться на практикум" rel="noopener noreferrer">Записаться на практикум</a>
+                    <a href="https://wa.me/77776896877" class="btn" aria-label="Оформить VIP">Оформить VIP</a>
                 </div>
             </div>
         </div>
@@ -611,7 +616,6 @@
                     <p>Астана, Казахстан</p>
                     <p>Тел.: <a href="https://wa.me/77776896877" target="_blank">+7 777 689 68 77</a></p>
                     <p>Email: <a href="mailto:aliya@sviridovaaliya.ru">aliya@sviridovaaliya.ru</a></p>
-
                     <p>© 2025 Алия Свиридова. Все права защищены.</p>
                     <p>ИП Свиридова Алия Катифовна<br>ИИН: 830523450138</p>
                     <div class="footer-links">
@@ -654,7 +658,7 @@
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
-        // Particles.js Initialization
+        // Инициализация Particles.js
         particlesJS('particles-js', {
             particles: {
                 number: { value: 50, density: { enable: true, value_area: 800 } },
@@ -688,7 +692,7 @@
             retina_detect: true
         });
 
-        // Burger Menu Toggle
+        // Переключение бургер-меню
         const burgerMenu = document.querySelector('.burger-menu');
         const navLinks = document.querySelector('.nav-links');
         burgerMenu.addEventListener('click', () => {
@@ -696,7 +700,7 @@
             navLinks.classList.toggle('active');
         });
 
-        // Smooth Scroll
+        // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -708,14 +712,13 @@
                         top: targetElement.offsetTop,
                         behavior: 'smooth'
                     });
-                    // Закрыть меню после клика
                     burgerMenu.classList.remove('active');
                     navLinks.classList.remove('active');
                 }
             });
         });
 
-        // Load CSS after page load
+        // Загрузка CSS после загрузки страницы
         window.addEventListener('load', function() {
             const links = document.querySelectorAll('link[rel="preload"][as="style"]');
             links.forEach(link => {
@@ -723,7 +726,7 @@
             });
         });
 
-        // Toggle ThetaHealing details
+        // Переключение деталей в секции ТетаХилинг
         document.querySelectorAll('.toggle-details').forEach(button => {
             button.addEventListener('click', () => {
                 const details = button.nextElementSibling;
@@ -743,14 +746,14 @@
                         ease: 'power2.in',
                         onComplete: () => {
                             details.style.display = 'none';
-                            button.textContent = 'Читать далее';
+                            button.textContent = 'Подробнее';
                         }
                     });
                 }
             });
         });
 
-        // Animations
+        // Анимации для элементов (без анимации для кноп Soup)
         gsap.from('.hero-title', {
             y: 50,
             opacity: 0,
@@ -790,21 +793,6 @@
                 start: 'top 80%'
             }
         });
-        // Анимация кнопок
-        document.querySelectorAll('.button-group').forEach(group => {
-            gsap.from(group.querySelectorAll('.btn'), {
-                scale: 0.9,
-                opacity: 0,
-                duration: 0.5,
-                stagger: 0.1,
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: group,
-                    start: 'top 90%',
-                    toggleActions: 'play none none none'
-                }
-            });
-        });
         // Параллакс для фото
         gsap.to('.hero-image img', {
             y: '+=20',
@@ -815,5 +803,6 @@
             }
         });
     </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9354e7bacc60bd08',t:'MTc0NTQ5MDQxNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
